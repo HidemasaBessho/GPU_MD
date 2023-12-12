@@ -405,6 +405,7 @@ int main(){
     measureTime();
     for(;;){
       clock++;
+      step++;
       calc_force_kernel<<<NB,NT>>>(x_dev,y_dev,fx_dev,fy_dev,a_dev,L_dev,list_dev,P_dev);
       eom_kernel<<<NB,NT>>>(x_dev,y_dev,vx_dev,vy_dev,fx_dev,fy_dev,L_dev,dt_dev,FIRE_gate_dev);
       FIRE_synth_dev<<<NB,NT>>>(vx_dev,vy_dev,fx_dev,fy_dev,power_dev,alpha_dev,FIRE_gate_dev);
@@ -433,7 +434,8 @@ int main(){
           len_div<<<1,1>>>(reduce_dev,remain_dev);
         }
         rec<<<1,1>>>(phi_dev,phi_rec_dev,P_dev,P_rec_dev);
-        step++;
+        cout << "step = " << step << endl;
+        step = 0;
         break;
       }
     }
@@ -463,6 +465,7 @@ int main(){
     volume_affine_step2_kernel<<<NB,NT>>>(x_dev,y_dev,phi_dev,phi0_dev);
     for(;;){
       clock++;
+      step++;
       calc_force_kernel<<<NB,NT>>>(x_dev,y_dev,fx_dev,fy_dev,a_dev,L_dev,list_dev,P_dev);
       eom_kernel<<<NB,NT>>>(x_dev,y_dev,vx_dev,vy_dev,fx_dev,fy_dev,L_dev,dt_dev,FIRE_gate_dev);
       FIRE_synth_dev<<<NB,NT>>>(vx_dev,vy_dev,fx_dev,fy_dev,power_dev,alpha_dev,FIRE_gate_dev);
@@ -491,7 +494,8 @@ int main(){
           len_div<<<1,1>>>(reduce_dev,remain_dev);
         }
         rec<<<1,1>>>(phi_dev,phi_rec_dev,P_dev,P_rec_dev);
-        step++;
+        cout << "step = " << step << endl;
+        step = 0;
         break;
       }
     }
